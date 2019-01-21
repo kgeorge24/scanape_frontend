@@ -1,4 +1,5 @@
 import React,{ Component } from 'react';
+import {Link} from 'react-router-dom'
 
 export default class Nav extends Component {
 
@@ -13,13 +14,13 @@ export default class Nav extends Component {
         
         if (localStorage.getItem('token')){
             properBar = <div>
-                <li className="nav-links"><a href="/login" data-value="register" onClick={this.click}>Logout</a></li>
+                <li className="nav-links"><Link to="/login" data-value="register" onClick={this.click}>Logout</Link></li>
                 <li className="nav-name glow">Hi, {this.props.user.name}</li>
             </div>
         }else{
             properBar = <div>
-                            <li className="nav-links"><a href="register" data-value="register" onClick={this.props.click}>Register</a></li>
-                            <li className="nav-links"><a href="login" data-value="login" onClick={this.props.click}>Login</a></li>
+                            <li className="nav-links"><Link to='/register' onClick={this.props.click} data-value="register">Register</Link></li>
+                            <li className="nav-links"><Link to="/login" data-value="login" onClick={this.props.click}>Login</Link></li>
                         </div>
         }
 
@@ -28,9 +29,9 @@ export default class Nav extends Component {
             <nav className="nav-primary">
             <ul>
                 {properBar}
-                <li className="nav-links left"><a href="home" data-value="home" onClick={this.props.click}>Home</a></li>
-                <li className="nav-links left"><a href="recipes" data-value="recipes">Recipes</a></li>
-                <li className="nav-links left"><a href="grocerylist" data-value="grocerylist" onClick={this.props.click}>Pantry</a></li>
+                <li className="nav-links left"><Link to="/home" data-value="home" onClick={this.props.click}>Home</Link></li>
+                <li className="nav-links left"><Link to="recipes" data-value="recipes">Recipes</Link></li>
+                <li className="nav-links left"><Link to="grocerylist" data-value="grocerylist" onClick={this.props.click}>Pantry</Link></li>
             </ul>
         </nav>
         )

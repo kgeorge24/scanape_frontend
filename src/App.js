@@ -8,7 +8,7 @@ import Register from './components/Register';
 import GroceryList from './components/GroceryList';
 import Recipes from './components/Recipes';
 import { withRouter } from 'react-router-dom'
-import RecipePage from './components/RecipePage';
+
 
 class App extends Component {
   state = {
@@ -16,7 +16,8 @@ class App extends Component {
     class: "downArrow bounce",
     change: false,
     currentRecipe: [],
-    clicked: false
+    clicked: false,
+    selectedItems: []
   }
 
 
@@ -110,6 +111,21 @@ class App extends Component {
   gives = () => {
     return this.state.currentRecipe
   }
+
+  collectSelectedItems = (item) => {
+    console.log('reached')
+    this.setState({ selectedItems: [...this.state.selectedItems, item]}, () => console.log(this.state.selectedItems))
+}
+
+deleteSelectedItem = (index) => {
+  let newIngredientsArray = [...this.state.selectedItems];
+        newIngredientsArray.splice(index, 1)
+        
+        this.setState({ 
+            selectedItems: newIngredientsArray
+         }, () => console.log(this.state.selectedItems))
+}
+
   render() {  
     // console.log(this.state.currentRecipe)
     return (
@@ -126,11 +142,11 @@ class App extends Component {
             render={() => (<LandingPage class={this.state.class} scrollHandler={this.scrollHandler}/>)}/>
 
             <Route path='/grocerylist' 
-            render={() => (<GroceryList user={this.state.user}/>)}/>
+            render={() => (<GroceryList user={this.state.user} collectSelectedItems={this.collectSelectedItems} selectedItems={this.state.selectedItems} deselectItem={this.deleteSelectedItem}/>)}/>
 
-            <Route exact path='/recipes' render={() => (<Recipes selectRecipe={this.setCurrentRecipe} currentRecipe={this.state.currentRecipe} clicked={this.state.clicked}/>)}/>
+            <Route exact path='/recipes' render={() => (<Recipes selectRecipe={this.setCurrentRecipe} currentRecipe={this.state.currentRecipe} clicked={this.state.clicked} items={this.state.selectedItems}/>)}/>
 
-            <Route exact path='/info' render={() => (<RecipePage recipe={this.gives()}/>)}/>
+            {/* <Route exact path='/info' render={() => (<RecipePage recipe={this.gives()}/>)}/> */}
           </Switch>
       </div>
     );

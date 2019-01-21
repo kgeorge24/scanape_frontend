@@ -40,7 +40,7 @@
 body {
   font-family: 'Fira Sans', sans-serif;
   font-weight: 400;
-  font-size: 16px;
+  font-size: 1.2vw;
   line-height: 1.7;
   color: black;
 }
@@ -64,15 +64,17 @@ body {
 
 .nav-primary {
   width: 100vw;
-  height: 8vh;
+  height: 6vh;
+  
 }
 
 .nav-links {
   float: right;
   display: block;
-  height: 8vh;
-  width: 6vw;
+  height: 7vh;
+  width: auto;
   text-align: center;
+  font-size: 1.3vw;
 }
 
 ul {
@@ -88,8 +90,13 @@ li a {
   display: block;
   color: white;
   text-align: center;
-  padding: 14px 16px;
+  padding: .6rem .8rem;
   text-decoration: none;
+  
+}
+
+li a:hover {
+  border-bottom: 5px solid rgba(255, 0, 0, 0.74);
 }
 
 .nav-name {
@@ -105,6 +112,7 @@ li a {
   width: auto;
   text-align: center;
   text-transform: capitalize;
+  font-size: 18px;
 }
 
 .left {
@@ -247,24 +255,53 @@ li a {
 }
 
 .form {
-  /* display: inline-block; */
   text-align: center;
   margin-top: -8vh; 
   color: white;
+  background-color:#fff;
+  height: auto;
+  width: 30vw;
+  border-radius: 5px;
+  border: 3px solid white;
+}
+
+.form-heading {
+  width: 20vw;
+  margin: 0 auto;
+  margin-top: -4vh;
+  background-color: red;
+  font-size: 1.5vw;
+  font-family: 'Sirin Stencil', cursive;
+}
+
+.input-holder {
+  position: relative;
+  height: auto;
+  margin-top: 5vh;
+  /* border: 2px solid black; */
 }
 
 .form-input {
   width: 20vw;
   height: 5vh;
-  margin: 3vh;
-  border-radius: 5px;
   font-size: 18px;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  border-bottom: 2px solid #BEBEBE;
+  margin: .7vw;
+  padding: 1vw;
+  background-color: transparent;
+  
 }
 
 .form-submit {
-  height: 4vh;
-  width: 5vw;
-  font-size: 14px;
+  height: 6vh;
+  width: 7vw;
+  font-size: 1.5vw;
+  background-color: red;
+  margin: 2vw;
+  color: white;
 }
 
 .form-container {
@@ -297,7 +334,7 @@ li a {
   text-align: center;
   padding: 10px;
   color: black;
-  font-size: 16px;
+  /* font-size: 16px; */
   text-transform: lowercase;
   /* text-transform: capitalize; */
   border-radius: 5px;
@@ -389,14 +426,15 @@ li a {
   flex-wrap: wrap;
   overflow: scroll;
   justify-content: center;
-  height: 72.5vh;
-
+  height: 66vh;
+  width: 80vw;
+  margin: 0 auto;
 }
 
 .recipe-card {
   background: #913834;
   color: white;
-  width: 20vw;
+  width: 15vw;
   height: auto;
   margin: 1rem;
   border-radius: .2rem;
@@ -407,21 +445,28 @@ li a {
 
 .recipe-card img {
   object-fit: contain;
-  width: 20vw;
-  height: 28vh;
+  width: 15vw;
+  height: 20vh;
   display: block;
   margin: 0 auto;
 }
 
-.recipe-card h1 {
-  font-size: 20px;
+.save img {
+  width: 2vw;
+  height: 2vh;
 }
 
-.recipe-name {
-  /* height: 3vh; */
-  /* padding: .5rem; */
-  /* border: 2px solid; */
+.recipe-link {
+  text-decoration: none;
 }
+
+.recipe-card h1 {
+  font-size: 1vw;
+  height: 6vh;
+}
+
+/* .recipe-name {
+} */
 
 .recipe {
   text-align: center;
@@ -498,4 +543,44 @@ input:focus {outline:none;}
   to {
     text-shadow: 0 0 20px #fff, 0 0 30px #ff8e4d, 0 0 40px #ffac4d, 0 0 50px #ff4d4d, 0 0 60px #ff684d, 0 0 70px #ff4d4d, 0 0 80px #ff714d;
   }
+}
+
+.selectedItems {
+  float: left;
+  /* border: 2px solid; */
+  width: 33vw;
+  height: 15vh;
+  position: absolute;
+  margin-top: -4.2vh;
+  font-size: .95vw;
+  overflow: scroll;
+  color: white;
+}
+
+.selectedItems-heading {
+  float: left;
+  /* border: 2px solid; */
+  width: 33vw;
+  height: 15vh;
+  position: absolute;
+  margin-top: -7vh;
+  font-size: 1vw;
+  /* overflow: scroll; */
+  color: white;
+}
+
+.pagination {
+  color: white;
+  display: block;
+  float: left;
+  /* border: 2px solid white; */
+  height: 8vh;
+  margin-top: 12vh;
+  padding: 1vw;
+  /* position: relative; */
+}
+
+.right {
+  float: right;
+  /* margin-left: 20vh; */
 }

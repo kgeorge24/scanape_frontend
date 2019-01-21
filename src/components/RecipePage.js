@@ -15,6 +15,7 @@ export default class RecipePage extends Component {
                 <h1>{this.props.recipe.label}</h1>
                 <img src={this.props.recipe.image} alt=""/>
                 {ingredients}
+                <a href={this.state.recipe.url}>Click For Full Recipe</a>
             </div>
         )
     }

@@ -18,15 +18,19 @@ export default class Login extends Component {
         return(
             <div>
                 <header >
-                {/* <Nav /> */}
                 <div className="form-container">
                     <form className='form' onSubmit={(e) => this.props.loginHandler(e, this.state)}>
-                    <h1>Login</h1>
+                    <div className="form-heading">
+                        <h1>Scanape</h1>
+                    </div>
+
+                    <div className="input-holder">
                         <input className="form-input" placeholder="Username" value={this.state.username} name="username" onChange={this.changeHandler}></input>
                         <br></br>
-                        <input className="form-input" placeholder="Password" value={this.state.password} name="password" onChange={this.changeHandler}></input>
+                        <input type="password" className="form-input" placeholder="Password" value={this.state.password} name="password" onChange={this.changeHandler}></input>
                         <br></br>
                         <button className='form-submit'>Login</button>
+                    </div>
                     </form>
                     </div>
                 </header>

@@ -18,18 +18,18 @@ export default class LandingPage extends Component {
                 <div className="About-page">
                 <div className="About">
                     <h1>What is SCANAPE?</h1>
-                    <p>SCANAPE is a website made for the Nutritionist. It has the ability to keep track of the grocery inventory wherever you are By using a barcode scanner toit lets you know what items your running low on. Your grocery list serves as a base and is used to show recipes that can be made with the items you currently have. If you really like how that meal came out you always have the option to favorite recipes so uou can reference them later. This application is a great tool for students, anyone interested in learning how to cook and people who really care about their nutritional intake. So register today and start scanning away.</p>
+                    <p>SCANAPE is a website made for Nutritionists. It has the ability to log your grocery inventory by using a barcode scanner. Your grocery list serves as a base and is used to help you search recipes that can be made with the items you currently have. This application is a great tool for students and anyone interested in learning how to cook. So register today and start scanning away.</p>
                 </div>
                 
                 <div className="InfoCard-cont">
                     <div className="Img-InfoCard">
                     <img src='https://tls-bocasystems.com/foto/header/tls-boca-systems-div-barcode-reader.png' alt=""></img>
-                    <p>First we scan our items so that we can kog what we have inside of our pantry.</p>
+                    <p>First we scan our items so that we can log what groceries we have inside of our pantry.</p>
                     </div>
 
                     <div className="Img-InfoCard">
                     <img src='https://core-secure-graphics.grocerywebsite.com/GraphicsShoppingList/ShoppingListIcon_221x221.png' alt=""></img>
-                    <p>Next those items get added to your grocery list where you can click which items you would like to incorporate in your recipe or simple print of your grocery list so you can go shopping.</p>
+                    <p>Next those items get added to your grocery list where you can click which items you would like to incorporate in your recipe.</p>
                     </div>
 
                     <div className="Img-InfoCard">

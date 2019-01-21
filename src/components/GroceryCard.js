@@ -51,22 +51,21 @@ export default class GroceryCard extends Component {
     // Changes color of grocery item on click of image.
     changeColor = () => {
         const { selected } = this.props
-        console.log(selected)
-        this.props.cart(this.props.grocery)
+        
+        // this.props.cart(this.props.grocery)
 
-        selected.map( item => {
-            // console.log(item)
-            if(this.props.grocery === item){
-                console.log('im in here already')
-            }else{
-                console.log('ive been added')
-            }
-        })
 
         if(this.state.class === "ingredient-card"){
             this.setState({ class: "ingredient-card green"})
+            this.props.cart(this.props.grocery)
         }else{
             this.setState({ class: "ingredient-card"})
+            this.props.selected.map( (item, index) => {
+                if (this.props.grocery === item){
+                    console.log('we have a match')
+                    this.props.deselect(index)
+                }
+            }) 
         }
 
     }

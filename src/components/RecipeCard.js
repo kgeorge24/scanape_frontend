@@ -5,7 +5,8 @@ export default class RecipeCard extends Component {
     render(){
         
         return(
-            <div className="recipe-card" onClick={(e) => this.props.selectRecipe(this.props.recipe)}>
+            <a href={this.props.recipe.url} className="recipe-link" target="_blank" rel="noopener noreferrer">
+            <div className="recipe-card">
                 <div className="recipe-name">
                     <h1>{this.props.recipe.label}</h1>
                 </div>
@@ -14,7 +15,7 @@ export default class RecipeCard extends Component {
                 </div>
                 <p>Prep-Time: {this.props.recipe.totalTime} min</p>
                 <p>Calories: {Math.round(this.props.recipe.calories)}</p>
-            </div>
+            </div></a>
         )
     }
 }

@@ -21,7 +21,11 @@ export default class Register extends Component {
                 <div className="form-container">
                     <form className='form' 
                     onSubmit={(e) => {this.props.submitHandler(e, this.state)}}>
-                    <h1>Register</h1>
+                    <div className="form-heading">
+                        <h1>Register</h1>
+                    </div>
+
+                    <div className="input-holder">
                         <input type='text' placeholder='Name' 
                         name="name" className="form-input" 
                         value={this.state.name} 
@@ -36,7 +40,7 @@ export default class Register extends Component {
 
                         <br></br>
                         
-                        <input type='text' placeholder='Password' 
+                        <input type='password' placeholder='Password' 
                         name="password" className="form-input" 
                         value={this.state.password} 
                         onChange={this.changeHandler}></input>
@@ -44,6 +48,7 @@ export default class Register extends Component {
                         <br></br>
                         
                         <button className='form-submit'>Register</button>
+                    </div>
                     </form>
                 </div>
                 </header>

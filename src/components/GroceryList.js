@@ -10,7 +10,7 @@ export default class GroceryList extends Component {
             user: {},
             userIngredientsArray: [],
             deleted: false,
-            selectedItems: []
+            
         }
     }
 
@@ -65,7 +65,7 @@ export default class GroceryList extends Component {
     // gets ingredients and saves it to state which gets mapped over to create grocery cards.
     getIngredients = (state) => {
         let token = localStorage.getItem('token')
-        console.log('were here')
+        // console.log('were here')
         state.forEach( ui => {
             
             fetch('http://localhost:3000/ingredients',{
@@ -110,7 +110,7 @@ export default class GroceryList extends Component {
 
     // Saves barcode to state on change of input field.
     changeHandler = (e) => {
-        console.log('change')
+        // console.log('change')
         this.setState({ barcode: e.target.value})
     }
 
@@ -131,13 +131,8 @@ export default class GroceryList extends Component {
          })
     }
 
-    collectSelectedItems = (item) => {
-        console.log('reached')
-        this.setState({ selectedItems: [...this.state.selectedItems, item]}, () => console.log(this.state.selectedItems))
-    }
-
     render(){
-        console.log('render runs again')
+        // console.log('render runs again')
         let groceries;
 
         if (localStorage.getItem('token')){
@@ -147,8 +142,9 @@ export default class GroceryList extends Component {
                user={this.props.user} change={this.rerender} 
                userIng={this.state.userIngredientsArray}
                ingredients={this.state.ingredients}
-               cart={this.collectSelectedItems}
-               selected={this.state.selectedItems}/>
+               cart={this.props.collectSelectedItems}
+               selected={this.props.selectedItems}
+               deselect={this.props.deselectItem}/>
             })
         }else{
             groceries = <h1 className="no-pantry">Login or Register to see your Pantry!</h1>
