@@ -1,0 +1,58 @@
+.recipe {
+	/* border: 2px solid; */
+	/* margin-top: 20px; */
+}
+
+#recipe h3 {
+	font-family: "Sirin Stencil", cursive;
+	color: white;
+	border-right: 2px solid white;
+	padding-right: 10px;
+}
+
+#recipe input[type="text"] {
+	width: 200px;
+	height: 30px;
+	padding: 10px;
+	padding-right: 24px;
+	font-size: 16px;
+	margin-left: 10px;
+}
+
+.search-img {
+	object-fit: contain;
+	position: absolute;
+	top: 98px;
+	width: 18px;
+	margin-left: -22px;
+	z-index: 2;
+}
+
+.recipe-cont::-webkit-scrollbar {
+	width: 0 !important;
+}
+
+.recipe-cont {
+	display: flex;
+	flex-wrap: wrap;
+	overflow: scroll;
+	justify-content: center;
+	align-items: center;
+	height: 84.5vh;
+	width: 100%;
+	/* margin-top: 30px; */
+	-webkit-overflow-scrolling: touch;
+	/* border: 2px solid black; */
+}
+
+.search-bar {
+	/* border: 2px solid black; */
+	overflow: auto;
+	background: #b3a296;
+	height: 55px;
+	/* line-height: 55px; */
+	display: flex;
+	align-items: center;
+	padding-left: 20px;
+	padding-right: 20px;
+}

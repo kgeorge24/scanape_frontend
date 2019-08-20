@@ -1,0 +1,58 @@
+.form-container {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 90vw;
+	height: 92vh;
+	/* border: 2px solid black; */
+}
+
+.form {
+	text-align: center;
+	margin-top: -8vh;
+	color: white;
+	background-color: #fff;
+	height: auto;
+	width: 300px;
+	border-radius: 5px;
+	border: 3px solid white;
+	box-shadow: 15px 15px 10px rgba(15, 15, 15, 0.692);
+}
+
+.form-heading {
+	width: 250px;
+	margin: 0 auto;
+	margin-top: -4vh;
+	background-color: #ee0301;
+	font-size: 1.5vw;
+	font-family: "Sirin Stencil", cursive;
+}
+
+.input-holder {
+	position: relative;
+	height: auto;
+	margin-top: 5vh;
+	/* border: 2px solid black; */
+}
+
+.form-input {
+	/* width: 180px; */
+	height: 5vh;
+	font-size: 18px;
+	border-top: none;
+	border-left: none;
+	border-right: none;
+	border-bottom: 2px solid #bebebe;
+	margin: 0.7vw;
+	padding: 1vw;
+	background-color: transparent;
+}
+
+.form-submit {
+	height: 6vh;
+	width: 100px;
+	font-size: 16px;
+	background-color: #ee0301;
+	margin: 2vw;
+	color: white;
+}

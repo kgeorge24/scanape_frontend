@@ -1,0 +1,27 @@
+header {
+	/* border: 2px solid black; */
+	color: white;
+}
+
+header h1,
+header h2 {
+	font-family: "Sirin Stencil", cursive;
+	text-align: center;
+}
+header h1 {
+	font-size: 70px;
+	text-align: center;
+}
+
+header h5 {
+	font-size: 16px;
+	text-align: center;
+}
+
+.landing-page {
+	/* border: 2px solid white; */
+	height: 65vh;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}

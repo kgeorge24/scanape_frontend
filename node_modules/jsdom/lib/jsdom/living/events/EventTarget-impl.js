@@ -110,7 +110,8 @@ class EventTargetImpl {
       appendToEventPath(eventImpl, targetImpl, targetOverride, relatedTarget, touchTargets, false);
 
       const isActivationEvent = MouseEvent.isImpl(eventImpl) && eventImpl.type === "click";
-      if (isActivationEvent) {
+
+      if (isActivationEvent && targetImpl._hasActivationBehavior) {
         activationTarget = targetImpl;
       }
 
@@ -144,8 +145,9 @@ class EventTargetImpl {
           (isNode(parent) && isShadowInclusiveAncestor(getRoot(targetImpl), parent)) ||
           idlUtils.wrapperForImpl(parent).constructor.name === "Window"
         ) {
-          if (isActivationEvent && eventImpl.bubbles && activationTarget === null) {
-            activationTarget = null;
+          if (isActivationEvent && eventImpl.bubbles && activationTarget === null &&
+              parent._hasActivationBehavior) {
+            activationTarget = parent;
           }
 
           appendToEventPath(eventImpl, parent, null, relatedTarget, touchTargets, slotInClosedTree);
@@ -154,7 +156,7 @@ class EventTargetImpl {
         } else {
           targetImpl = parent;
 
-          if (isActivationEvent && activationTarget === null) {
+          if (isActivationEvent && activationTarget === null && targetImpl._hasActivationBehavior) {
             activationTarget = targetImpl;
           }
 
@@ -168,42 +170,48 @@ class EventTargetImpl {
         slotInClosedTree = false;
       }
 
-      let clearTargetsTupleIndex = -1;
-      for (let i = eventImpl._path.length - 1; i >= 0 && clearTargetsTupleIndex === -1; i--) {
+      let clearTargetsStructIndex = -1;
+      for (let i = eventImpl._path.length - 1; i >= 0 && clearTargetsStructIndex === -1; i--) {
         if (eventImpl._path[i].target !== null) {
-          clearTargetsTupleIndex = i;
+          clearTargetsStructIndex = i;
         }
       }
-      const clearTargetsTuple = eventImpl._path[clearTargetsTupleIndex];
+      const clearTargetsStruct = eventImpl._path[clearTargetsStructIndex];
 
       clearTargets =
-          (isNode(clearTargetsTuple.target) && isShadowRoot(getRoot(clearTargetsTuple.target))) ||
-          (isNode(clearTargetsTuple.relatedTarget) && isShadowRoot(getRoot(clearTargetsTuple.relatedTarget)));
+          (isNode(clearTargetsStruct.target) && isShadowRoot(getRoot(clearTargetsStruct.target))) ||
+          (isNode(clearTargetsStruct.relatedTarget) && isShadowRoot(getRoot(clearTargetsStruct.relatedTarget)));
 
-      eventImpl.eventPhase = Event.CAPTURING_PHASE;
+      if (activationTarget !== null && activationTarget._legacyPreActivationBehavior) {
+        activationTarget._legacyPreActivationBehavior();
+      }
+
       for (let i = eventImpl._path.length - 1; i >= 0; --i) {
-        const tuple = eventImpl._path[i];
+        const struct = eventImpl._path[i];
 
-        if (tuple.target === null) {
-          invokeEventListeners(tuple, eventImpl);
+        if (struct.target !== null) {
+          eventImpl.eventPhase = Event.AT_TARGET;
+        } else {
+          eventImpl.eventPhase = Event.CAPTURING_PHASE;
         }
+
+        invokeEventListeners(struct, eventImpl, "capturing");
       }
 
       for (let i = 0; i < eventImpl._path.length; i++) {
-        const tuple = eventImpl._path[i];
+        const struct = eventImpl._path[i];
 
-        if (tuple.target !== null) {
+        if (struct.target !== null) {
           eventImpl.eventPhase = Event.AT_TARGET;
         } else {
+          if (!eventImpl.bubbles) {
+            continue;
+          }
+
           eventImpl.eventPhase = Event.BUBBLING_PHASE;
         }
 
-        if (
-          (eventImpl.eventPhase === Event.BUBBLING_PHASE && eventImpl.bubbles) ||
-          eventImpl.eventPhase === Event.AT_TARGET
-        ) {
-          invokeEventListeners(tuple, eventImpl);
-        }
+        invokeEventListeners(struct, eventImpl, "bubbling");
       }
     }
 
@@ -220,6 +228,14 @@ class EventTargetImpl {
       eventImpl.relatedTarget = null;
     }
 
+    if (activationTarget !== null) {
+      if (!eventImpl._canceledFlag) {
+        activationTarget._activationBehavior();
+      } else if (activationTarget._legacyCanceledActivationBehavior) {
+        activationTarget._legacyCanceledActivationBehavior();
+      }
+    }
+
     return !eventImpl._canceledFlag;
   }
 }
@@ -229,9 +245,9 @@ module.exports = {
 };
 
 // https://dom.spec.whatwg.org/#concept-event-listener-invoke
-function invokeEventListeners(tuple, eventImpl) {
-  const tupleIndex = eventImpl._path.indexOf(tuple);
-  for (let i = tupleIndex; i >= 0; i--) {
+function invokeEventListeners(struct, eventImpl, phase) {
+  const structIndex = eventImpl._path.indexOf(struct);
+  for (let i = structIndex; i >= 0; i--) {
     const t = eventImpl._path[i];
     if (t.target) {
       eventImpl.target = t.target;
@@ -239,20 +255,20 @@ function invokeEventListeners(tuple, eventImpl) {
     }
   }
 
-  eventImpl.relatedTarget = idlUtils.wrapperForImpl(tuple.relatedTarget);
+  eventImpl.relatedTarget = idlUtils.wrapperForImpl(struct.relatedTarget);
 
   if (eventImpl._stopPropagationFlag) {
     return;
   }
 
-  eventImpl.currentTarget = idlUtils.wrapperForImpl(tuple.item);
+  eventImpl.currentTarget = idlUtils.wrapperForImpl(struct.item);
 
-  const listeners = tuple.item._eventListeners;
-  innerInvokeEventListeners(eventImpl, listeners);
+  const listeners = struct.item._eventListeners;
+  innerInvokeEventListeners(eventImpl, listeners, phase, struct);
 }
 
 // https://dom.spec.whatwg.org/#concept-event-listener-inner-invoke
-function innerInvokeEventListeners(eventImpl, listeners) {
+function innerInvokeEventListeners(eventImpl, listeners, phase) {
   let found = false;
 
   const { type, target } = eventImpl;
@@ -277,8 +293,8 @@ function innerInvokeEventListeners(eventImpl, listeners) {
     found = true;
 
     if (
-      (eventImpl.eventPhase === Event.CAPTURING_PHASE && !capture) ||
-      (eventImpl.eventPhase === Event.BUBBLING_PHASE && capture)
+      (phase === "capturing" && !capture) ||
+      (phase === "bubbling" && capture)
     ) {
       continue;
     }
