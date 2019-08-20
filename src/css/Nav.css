@@ -1,0 +1,43 @@
+nav {
+	overflow: auto;
+	background: #a2cf2d;
+	height: 55px;
+	line-height: 55px;
+}
+
+a {
+	color: white;
+	text-decoration: none;
+}
+
+.nav-links {
+	float: right;
+	display: block;
+	width: auto;
+	text-align: center;
+	margin-left: 10px;
+	margin-right: 10px;
+	font-weight: bold;
+	color: white;
+	/* border: 2px solid black; */
+}
+
+.nav-links img {
+	object-fit: contain;
+	width: 15px;
+	margin-right: 5px;
+	/* border: 2px solid black; */
+}
+
+.nav-links div {
+	/* border: 2px solid black; */
+	display: flex;
+	justify-content: center;
+}
+.right {
+	float: right;
+}
+
+.left {
+	float: left;
+}

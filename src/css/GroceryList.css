@@ -1,0 +1,40 @@
+.grocery-cont::-webkit-scrollbar {
+	width: 0 !important;
+}
+
+.grocery-cont {
+	overflow: scroll;
+	height: 84vh;
+	display: flex;
+	flex-wrap: wrap;
+	/* width: 100vw; */
+	justify-content: center;
+	/* border: 2px solid black; */
+	padding-top: 10px;
+	/* background: rgba(255, 255, 255, 0.301); */
+	/* backdrop-filter: blur(2px); */
+}
+
+.hidden-input {
+	opacity: 0;
+}
+
+.div::-webkit-scrollbar {
+	width: 0 !important;
+}
+
+.div input[type="text"] {
+	width: 200px;
+	height: 30px;
+	padding: 10px;
+	padding-right: 24px;
+	font-size: 16px;
+	margin-left: 10px;
+}
+
+.div h3 {
+	font-family: "Sirin Stencil", cursive;
+	color: white;
+	border-right: 2px solid white;
+	padding-right: 10px;
+}
