@@ -38,7 +38,7 @@
 	overflow: scroll;
 	justify-content: center;
 	align-items: center;
-	height: 84.5vh;
+	height: 84vh;
 	width: 100%;
 	/* margin-top: 30px; */
 	-webkit-overflow-scrolling: touch;
@@ -55,4 +55,40 @@
 	align-items: center;
 	padding-left: 20px;
 	padding-right: 20px;
+}
+
+.search-bar img {
+	object-fit: contain;
+	width: 23px;
+}
+
+.search-bar button {
+	margin-left: 5px;
+	width: 30px;
+	height: 30px;
+	border-radius: 0;
+}
+
+.selected-items {
+	display: block;
+	background: white;
+	position: absolute;
+	color: black;
+	width: 100vw;
+	padding: 20px;
+	z-index: 2;
+}
+
+.unselected-items {
+	display: none;
+	background: white;
+	position: absolute;
+	color: black;
+	width: 100vw;
+	padding: 20px;
+	z-index: 2;
+}
+
+.selected-items h4 {
+	color: black;
 }

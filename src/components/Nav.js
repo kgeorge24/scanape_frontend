@@ -3,8 +3,31 @@ import { Link } from "react-router-dom"
 import "../css/Nav.css"
 
 export default class Nav extends Component {
+	state = {
+		toggleProfileOptions: "profile-menu-hidden"
+	}
 	clickedLogout = () => {
 		localStorage.clear()
+	}
+
+	toggleProfileOptions = () => {
+		this.state.toggleProfileOptions === "profile-menu"
+			? this.setState({ toggleProfileOptions: "profile-menu-hidden" })
+			: this.setState({ toggleProfileOptions: "profile-menu" })
+	}
+
+	profileMenu = () => {
+		return (
+			<div className={this.state.toggleProfileOptions}>
+				<h4>User email</h4>
+				<hr />
+				<p>
+					<Link to="/login" data-value="register" onClick={this.clickedLogout}>
+						Logout
+					</Link>
+				</p>
+			</div>
+		)
 	}
 
 	showLoginOrLogout = () => {
@@ -12,7 +35,7 @@ export default class Nav extends Component {
 			case true:
 				return (
 					<React.Fragment>
-						<li className="nav-links right">
+						{/* <li className="nav-links right">
 							<Link
 								to="/login"
 								data-value="register"
@@ -20,9 +43,9 @@ export default class Nav extends Component {
 							>
 								Logout
 							</Link>
-						</li>
+						</li> */}
 						<li className="nav-links right">
-							<div>
+							<div onClick={this.toggleProfileOptions}>
 								<img src={require("../img/profile.png")} alt="" /> Hi,{" "}
 								{this.props.user.name}
 							</div>
@@ -55,30 +78,33 @@ export default class Nav extends Component {
 
 	render() {
 		return (
-			<nav>
-				<ul>
-					{this.showLoginOrLogout()}
-					<li className="nav-links left">
-						<Link to="/home" data-value="home" onClick={this.props.click}>
-							Home
-						</Link>
-					</li>
-					<li className="nav-links left">
-						<Link to="recipes" data-value="recipes">
-							Recipes
-						</Link>
-					</li>
-					<li className="nav-links left">
-						<Link
-							to="grocerylist"
-							data-value="grocerylist"
-							onClick={this.props.click}
-						>
-							Pantry
-						</Link>
-					</li>
-				</ul>
-			</nav>
+			<div>
+				<nav>
+					<ul>
+						{this.showLoginOrLogout()}
+						<li className="nav-links left">
+							<Link to="/home" data-value="home" onClick={this.props.click}>
+								Home
+							</Link>
+						</li>
+						<li className="nav-links left">
+							<Link to="recipes" data-value="recipes">
+								Recipes
+							</Link>
+						</li>
+						<li className="nav-links left">
+							<Link
+								to="grocerylist"
+								data-value="grocerylist"
+								onClick={this.props.click}
+							>
+								Pantry
+							</Link>
+						</li>
+					</ul>
+				</nav>
+				{this.profileMenu()}
+			</div>
 		)
 	}
 }

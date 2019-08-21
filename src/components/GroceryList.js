@@ -152,7 +152,6 @@ export default class GroceryList extends Component {
 			<div className="div">
 				<div className="search-bar">
 					<h3>SCANAPE</h3>
-					{/* {selectedList()} */}
 					<form onSubmit={this.submitHandler}>
 						<input
 							type="text"

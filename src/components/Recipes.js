@@ -9,7 +9,9 @@ export default class Recipes extends Component {
 			searchTerm: "",
 			recipes: [],
 			currentRecipe: [],
-			clicked: false
+			clicked: false,
+			toggleList: false,
+			listClass: "unselected-items"
 		}
 	}
 
@@ -43,6 +45,12 @@ export default class Recipes extends Component {
 		this.setState({ currentRecipe: recipe })
 	}
 
+	toggleList = () => {
+		this.state.toggleList === false
+			? this.setState({ toggleList: true })
+			: this.setState({ toggleList: false })
+	}
+
 	render() {
 		const recipeCard = this.state.recipes.map(rec => {
 			// console.log(rec.recipe)
@@ -58,34 +66,40 @@ export default class Recipes extends Component {
 		const items = this.props.items.map((item, index) => {
 			return (
 				<div>
-					<p>
-						{index + 1}. {item.title}
-					</p>
+					<p>{item.title}</p>
 				</div>
 			)
 		})
 
 		const selectedList = () => {
-			console.log(this.props.items.length)
 			if (this.props.items.length !== 0) {
-				console.log("hi")
 				return (
-					<div>
-						<div className="selectedItems-heading">
-							<h3>Selected Items</h3>
+					<div className="selected-items" id="selected">
+						<div>
+							<h4>Selected Items</h4>
 						</div>
 						<div className="selectedItems">{items}</div>
 					</div>
 				)
 			} else {
-				console.log("empty")
+				return (
+					<div className="selected-items" id="selected">
+						<h4>
+							Please select ingredients in your pantry that you want to use.
+						</h4>
+					</div>
+				)
 			}
 		}
+
+		const showSelectedList = () => {
+			return this.state.toggleList === true ? selectedList() : null
+		}
+
 		return (
 			<div className="recipe" id="recipe">
 				<div className="search-bar">
 					<h3>SCANAPE</h3>
-					{selectedList()}
 					<form onSubmit={this.submitHandler}>
 						<input
 							type="text"
@@ -93,7 +107,11 @@ export default class Recipes extends Component {
 							value={this.state.searchTerm}
 						/>
 					</form>
+					<button onClick={this.toggleList}>
+						<img src={require("../img/list.png")} />
+					</button>
 				</div>
+				{showSelectedList()}
 				<div className="recipe-cont">{recipeCard}</div>
 			</div>
 		)

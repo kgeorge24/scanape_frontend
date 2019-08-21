@@ -33,6 +33,7 @@ a {
 	/* border: 2px solid black; */
 	display: flex;
 	justify-content: center;
+	text-transform: capitalize;
 }
 .right {
 	float: right;
@@ -40,4 +41,32 @@ a {
 
 .left {
 	float: left;
+}
+
+.profile-menu {
+	display: block;
+	position: absolute;
+	right: 10px;
+	width: 200px;
+	padding-top: 10px;
+	padding-left: 15px;
+	padding-bottom: 10px;
+	border-radius: 5px;
+	background: white;
+}
+
+.profile-menu a {
+	color: red;
+	font-weight: bold;
+}
+
+.profile-menu-hidden {
+	display: none;
+	position: absolute;
+	right: 10px;
+	width: 200px;
+	padding-top: 10px;
+	padding-left: 15px;
+	border-radius: 5px;
+	background: white;
 }
