@@ -23,7 +23,7 @@ class App extends Component {
 		let token = localStorage.getItem("token")
 
 		if (token) {
-			fetch("https://192.168.1.175:3000/current_user", {
+			fetch("http://localhost:3000/current_user", {
 				headers: {
 					"Content-Type": "application/json",
 					Accepts: "application/json",
@@ -39,7 +39,7 @@ class App extends Component {
 	registerHandler = (event, formInfo) => {
 		event.preventDefault()
 
-		fetch("https://192.168.1.175:3000/users", {
+		fetch("http://localhost:3000/users", {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
@@ -65,7 +65,7 @@ class App extends Component {
 	loginHandler = (e, formInfo) => {
 		e.preventDefault()
 
-		fetch("https://192.168.1.175:3000/login", {
+		fetch("http://localhost:3000/login", {
 			method: "POST",
 			headers: {
 				"Content-type": "application/json",

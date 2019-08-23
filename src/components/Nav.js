@@ -19,7 +19,7 @@ export default class Nav extends Component {
 	profileMenu = () => {
 		return (
 			<div className={this.state.toggleProfileOptions}>
-				<h4>User email</h4>
+				<h4>{this.props.user.username}</h4>
 				<hr />
 				<p>
 					<Link to="/login" data-value="register" onClick={this.clickedLogout}>
@@ -47,7 +47,7 @@ export default class Nav extends Component {
 						<li className="nav-links right">
 							<div onClick={this.toggleProfileOptions}>
 								<img src={require("../img/profile.png")} alt="" /> Hi,{" "}
-								{this.props.user.name}
+								{this.props.user.name}!
 							</div>
 						</li>
 					</React.Fragment>
