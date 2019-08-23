@@ -108,7 +108,7 @@ export default class Recipes extends Component {
 						/>
 					</form>
 					<button onClick={this.toggleList}>
-						<img src={require("../img/list.png")} />
+						<img src={require("../img/list.png")} alt="" />
 					</button>
 				</div>
 				{showSelectedList()}

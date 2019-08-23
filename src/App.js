@@ -8,6 +8,8 @@ import Register from "./components/Register"
 import GroceryList from "./components/GroceryList"
 import Recipes from "./components/Recipes"
 import { withRouter } from "react-router-dom"
+import { connect } from "react-redux"
+import { fetchUserData } from "./actions"
 
 class App extends Component {
 	state = {
@@ -18,21 +20,8 @@ class App extends Component {
 		selectedItems: []
 	}
 
-	// Fecthes the current user and saves it to the state under the property "user".
 	componentDidMount() {
-		let token = localStorage.getItem("token")
-
-		if (token) {
-			fetch("http://localhost:3000/current_user", {
-				headers: {
-					"Content-Type": "application/json",
-					Accepts: "application/json",
-					Authorization: token
-				}
-			})
-				.then(res => res.json())
-				.then(json => this.setState({ user: json }))
-		}
+		this.props.fetchUserData()
 	}
 
 	// Handles when someone signs up for Scanape.
@@ -122,7 +111,7 @@ class App extends Component {
 	render() {
 		return (
 			<div className="app" onScroll={this.scrollHandler}>
-				<Nav user={this.state.user} />
+				<Nav />
 				<Switch>
 					<Route
 						path="/login"
@@ -148,7 +137,7 @@ class App extends Component {
 						path="/grocerylist"
 						render={() => (
 							<GroceryList
-								user={this.state.user}
+								user={this.props.user}
 								collectSelectedItems={this.collectSelectedItems}
 								selectedItems={this.state.selectedItems}
 								deselectItem={this.deleteSelectedItem}
@@ -174,4 +163,11 @@ class App extends Component {
 	}
 }
 
-export default withRouter(App)
+const mapStateToProps = state => {
+	return state
+}
+
+export default connect(
+	mapStateToProps,
+	{ fetchUserData }
+)(withRouter(App))
