@@ -1,7 +1,10 @@
 import React, { Component } from "react"
 import "../css/Register.css"
+import { connect } from "react-redux"
+import { registerUserHandler } from "../actions"
+import { withRouter } from "react-router-dom"
 
-export default class Register extends Component {
+class Register extends Component {
 	state = {
 		name: "",
 		username: "",
@@ -21,7 +24,11 @@ export default class Register extends Component {
 						<form
 							className="form"
 							onSubmit={e => {
-								this.props.submitHandler(e, this.state)
+								this.props.registerUserHandler(
+									e,
+									this.state,
+									this.props.history
+								)
 							}}
 						>
 							<div className="form-heading">
@@ -72,3 +79,12 @@ export default class Register extends Component {
 		)
 	}
 }
+
+const mapStateToProps = state => {
+	return state
+}
+
+export default connect(
+	mapStateToProps,
+	{ registerUserHandler }
+)(withRouter(Register))

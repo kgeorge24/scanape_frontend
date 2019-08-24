@@ -7,6 +7,7 @@ class Nav extends Component {
 	state = {
 		toggleProfileOptions: "profile-menu-hidden"
 	}
+
 	clickedLogout = () => {
 		localStorage.clear()
 	}
@@ -17,15 +18,19 @@ class Nav extends Component {
 			: this.setState({ toggleProfileOptions: "profile-menu" })
 	}
 
+	closeToggleProfileOptions = () => {
+		this.setState({ toggleProfileOptions: "profile-menu-hidden" })
+	}
+
 	profileMenu = () => {
 		return (
 			<div className={this.state.toggleProfileOptions}>
 				<h4>{this.props.userData.username}</h4>
 				<hr />
 				<p>
-					<Link to="/login" data-value="register" onClick={this.clickedLogout}>
+					<a href="/login" onClick={this.clickedLogout}>
 						Logout
-					</Link>
+					</a>
 				</p>
 			</div>
 		)
@@ -36,15 +41,6 @@ class Nav extends Component {
 			case true:
 				return (
 					<React.Fragment>
-						{/* <li className="nav-links right">
-							<Link
-								to="/login"
-								data-value="register"
-								onClick={this.clickedLogout}
-							>
-								Logout
-							</Link>
-						</li> */}
 						<li className="nav-links right">
 							<div onClick={this.toggleProfileOptions}>
 								<img src={require("../img/profile.png")} alt="" /> Hi,{" "}
@@ -78,19 +74,26 @@ class Nav extends Component {
 	}
 
 	render() {
-		console.log(this.props.userData.name)
 		return (
 			<div>
 				<nav>
 					<ul>
 						{this.showLoginOrLogout()}
 						<li className="nav-links left">
-							<Link to="/home" data-value="home" onClick={this.props.click}>
+							<Link
+								to="/home"
+								data-value="home"
+								onClick={this.closeToggleProfileOptions}
+							>
 								Home
 							</Link>
 						</li>
 						<li className="nav-links left">
-							<Link to="recipes" data-value="recipes">
+							<Link
+								to="recipes"
+								data-value="recipes"
+								onClick={this.closeToggleProfileOptions}
+							>
 								Recipes
 							</Link>
 						</li>
@@ -98,7 +101,7 @@ class Nav extends Component {
 							<Link
 								to="grocerylist"
 								data-value="grocerylist"
-								onClick={this.props.click}
+								onClick={this.closeToggleProfileOptions}
 							>
 								Pantry
 							</Link>

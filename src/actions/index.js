@@ -16,7 +16,7 @@ export const fetchUserData = () => dispatch => {
 	}
 }
 
-export const registerUser = (event, formInfo) => dispatch => {
+export const registerUserHandler = (event, formInfo, history) => dispatch => {
 	event.preventDefault()
 
 	fetch("http://localhost:3000/users", {
@@ -35,8 +35,32 @@ export const registerUser = (event, formInfo) => dispatch => {
 		.then(json => {
 			if (json.jwt) {
 				localStorage.setItem("token", json.jwt)
-				this.setState({ user: json })
+				dispatch({ type: "FETCH_USER_DATA", payload: json })
 			}
 		})
-	this.props.history.push("/home")
+	history.push("/home")
+}
+
+export const loginUserHandler = (e, formInfo, history) => dispatch => {
+	e.preventDefault()
+
+	fetch("http://localhost:3000/login", {
+		method: "POST",
+		headers: {
+			"Content-type": "application/json",
+			Accepts: "application/json"
+		},
+		body: JSON.stringify({
+			username: formInfo.username,
+			password: formInfo.password
+		})
+	})
+		.then(res => res.json())
+		.then(json => {
+			if (json.jwt) {
+				localStorage.setItem("token", json.jwt)
+				dispatch({ type: "FETCH_USER_DATA", payload: json })
+			}
+		})
+	history.push("/home")
 }

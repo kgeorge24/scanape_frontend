@@ -1,7 +1,10 @@
 import React, { Component } from "react"
 import "../css/Login.css"
+import { connect } from "react-redux"
+import { withRouter } from "react-router-dom"
+import { loginUserHandler } from "../actions"
 
-export default class Login extends Component {
+class Login extends Component {
 	state = {
 		username: "",
 		password: ""
@@ -18,7 +21,9 @@ export default class Login extends Component {
 					<div className="form-container">
 						<form
 							className="form"
-							onSubmit={e => this.props.loginHandler(e, this.state)}
+							onSubmit={e =>
+								this.props.loginUserHandler(e, this.state, this.props.history)
+							}
 						>
 							<div className="form-heading">
 								<h1>Scanape</h1>
@@ -52,3 +57,12 @@ export default class Login extends Component {
 		)
 	}
 }
+
+const mapStateToProps = state => {
+	return state
+}
+
+export default connect(
+	mapStateToProps,
+	{ loginUserHandler }
+)(withRouter(Login))

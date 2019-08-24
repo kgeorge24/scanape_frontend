@@ -24,57 +24,6 @@ class App extends Component {
 		this.props.fetchUserData()
 	}
 
-	// Handles when someone signs up for Scanape.
-	registerHandler = (event, formInfo) => {
-		event.preventDefault()
-
-		fetch("http://localhost:3000/users", {
-			method: "POST",
-			headers: {
-				"Content-Type": "application/json",
-				Accepts: "application/json"
-			},
-			body: JSON.stringify({
-				name: formInfo.name,
-				username: formInfo.username,
-				password: formInfo.password
-			})
-		})
-			.then(res => res.json())
-			.then(json => {
-				if (json.jwt) {
-					localStorage.setItem("token", json.jwt)
-					this.setState({ user: json })
-				}
-			})
-		this.props.history.push("/home")
-	}
-
-	// Handles when a user logs in to Scanape.
-	loginHandler = (e, formInfo) => {
-		e.preventDefault()
-
-		fetch("http://localhost:3000/login", {
-			method: "POST",
-			headers: {
-				"Content-type": "application/json",
-				Accepts: "application/json"
-			},
-			body: JSON.stringify({
-				username: formInfo.username,
-				password: formInfo.password
-			})
-		})
-			.then(res => res.json())
-			.then(json => {
-				if (json.jwt) {
-					localStorage.setItem("token", json.jwt)
-					this.setState({ user: json })
-				}
-			})
-		this.props.history.push("/home")
-	}
-
 	setCurrentRecipe = recipe => {
 		this.setState(
 			{
@@ -113,25 +62,11 @@ class App extends Component {
 			<div className="app" onScroll={this.scrollHandler}>
 				<Nav />
 				<Switch>
-					<Route
-						path="/login"
-						render={() => <Login loginHandler={this.loginHandler} />}
-					/>
+					<Route path="/login" render={() => <Login />} />
 
-					<Route
-						path="/register"
-						render={() => <Register submitHandler={this.registerHandler} />}
-					/>
+					<Route path="/register" render={() => <Register />} />
 
-					<Route
-						path="/home"
-						render={() => (
-							<LandingPage
-								class={this.state.class}
-								scrollHandler={this.scrollHandler}
-							/>
-						)}
-					/>
+					<Route path="/home" render={() => <LandingPage />} />
 
 					<Route
 						path="/grocerylist"
