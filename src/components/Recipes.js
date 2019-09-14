@@ -53,7 +53,6 @@ export default class Recipes extends Component {
 
 	render() {
 		const recipeCard = this.state.recipes.map(rec => {
-			// console.log(rec.recipe)
 			return (
 				<RecipeCard
 					key={rec.recipe.label}

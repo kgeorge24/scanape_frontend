@@ -8,6 +8,15 @@ const fetchUserDataReducer = (userData = [], action) => {
 	return userData
 }
 
+const fetchItemQuantityReducer = (itemQuantity = null, action) => {
+	if (action.type === "FETCH_ITEM_COUNT") {
+		return action.payload
+	}
+
+	return itemQuantity
+}
+
 export default combineReducers({
-	userData: fetchUserDataReducer
+	userData: fetchUserDataReducer,
+	itemQuantity: fetchItemQuantityReducer
 })

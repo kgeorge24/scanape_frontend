@@ -1,18 +1,17 @@
 import React, { Component } from "react"
 import "../css/GroceryCard.css"
+import { fetchItemCount } from "../actions"
+import { connect } from "react-redux"
 
-export default class GroceryCard extends Component {
+class GroceryCard extends Component {
 	state = {
 		quantity: "",
 		class: "ingredient-card",
 		clicked: false
 	}
 
-	// Sets proper quantity of grocery item.
 	componentDidMount() {
-		fetch(`http://localhost:3000/ingredients/${this.props.grocery.id}`)
-			.then(res => res.json())
-			.then(json => this.setState({ quantity: json.quantity }))
+		this.props.fetchItemCount(this.props.grocery.id)
 	}
 
 	// Decreases quantity on button click
@@ -81,9 +80,7 @@ export default class GroceryCard extends Component {
 						this.props.grocery.id === parseInt(userIngredient.ingredient_id)
 					) {
 						fetch(
-							`http://localhost:3000/ingredients/${
-								userIngredient.ingredient_id
-							}`,
+							`http://localhost:3000/ingredients/${userIngredient.ingredient_id}`,
 							{
 								method: "DELETE",
 								headers: {
@@ -105,9 +102,7 @@ export default class GroceryCard extends Component {
 										this.props.change(ingredient, index)
 
 										fetch(
-											`http://localhost:3000/user_ingredients/${
-												userIngredient.id
-											}`,
+											`http://localhost:3000/user_ingredients/${userIngredient.id}`,
 											{
 												method: "DELETE",
 												headers: {
@@ -130,6 +125,7 @@ export default class GroceryCard extends Component {
 	}
 
 	render() {
+		console.log(this.props)
 		const { title, picture, id } = this.props.grocery
 		const quantity = this.state.quantity
 		return (
@@ -147,10 +143,22 @@ export default class GroceryCard extends Component {
 						<button className="button" onClick={this.increaseQuantityOfItem}>
 							+
 						</button>
-						<p>Quantity: {quantity}</p>
+						<p>
+							Quantity:{" "}
+							{this.props.itemQuantity ? this.props.itemQuantity.quantity : 0}
+						</p>
 					</div>
 				</div>
 			</div>
 		)
 	}
 }
+
+const mapStateToProps = state => {
+	return state
+}
+
+export default connect(
+	mapStateToProps,
+	{ fetchItemCount }
+)(GroceryCard)

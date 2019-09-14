@@ -64,3 +64,9 @@ export const loginUserHandler = (e, formInfo, history) => dispatch => {
 		})
 	history.push("/home")
 }
+
+export const fetchItemCount = groceryId => dispatch => {
+	fetch(`http://localhost:3000/ingredients/${groceryId}`)
+		.then(res => res.json())
+		.then(json => dispatch({ type: "FETCH_ITEM_COUNT", payload: json }))
+}

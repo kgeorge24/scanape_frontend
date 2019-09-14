@@ -1,8 +1,9 @@
 import React, { Component } from "react"
 import GroceryCard from "./GroceryCard"
 import "../css/GroceryList.css"
-
-export default class GroceryList extends Component {
+import { connect } from "react-redux"
+import { fetchUserData } from "../actions"
+class GroceryList extends Component {
 	constructor() {
 		super()
 		this.state = {
@@ -17,7 +18,6 @@ export default class GroceryList extends Component {
 	// Gets current user and passes it to get user ingredients.
 	componentDidMount = () => {
 		let token = localStorage.getItem("token")
-
 		if (token) {
 			fetch("http://localhost:3000/current_user", {
 				headers: {
@@ -174,3 +174,12 @@ export default class GroceryList extends Component {
 		)
 	}
 }
+
+const mapStateToProps = state => {
+	return state
+}
+
+export default connect(
+	mapStateToProps,
+	{ fetchUserData }
+)(GroceryList)
